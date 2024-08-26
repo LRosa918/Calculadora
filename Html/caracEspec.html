@@ -1,0 +1,46 @@
+<!DOCTYPE html> <
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/carlos/calc.icon.ico" rel="shortcut icon" type="image/x-icon"> <!-- Define o ícone que será exibido na aba do navegador -->
+    <link rel="stylesheet" href="styleCalc.css"> <!-- Link para o arquivo CSS que estiliza a página -->
+    <title>Caracteres Especiais</title> <!-- Define o título da página que aparece na aba do navegador -->
+</head>
+<body>
+    <div class="conteiner"> 
+        <h1>Contar Caracteres Especiais</h1> 
+        
+        <label for="input-text">Digite um texto:</label> <!-- Rótulo para o campo de entrada do texto -->
+        <input type="text" id="input-text" required> <!-- Campo de entrada de texto, obrigatório -->
+        
+        <button type="button" onclick="countSpecialChars()">Contar Caracteres Especiais</button> <!-- Botão que aciona a função para contar os caracteres especiais -->
+
+        <a href="telaInicio.html" class="btn">Voltar ao Inicio</a> <!-- Link para voltar à tela inicial -->
+        
+        <p id="result"></p> <!-- Parágrafo onde o resultado será exibido -->
+    </div>
+
+    <script>
+        function countSpecialChars() {
+            const inputText = document.getElementById('input-text').value; // Obtém o valor digitado no campo de texto
+            const resultElement = document.getElementById('result'); // Referência ao parágrafo onde o resultado será exibido
+            
+            // Lista de caracteres especiais a serem contados
+            const specialChars = '@#!()_-.=+§*$%&';
+            let count = 0; // Inicializa a contagem de caracteres especiais
+            
+            // Itera sobre cada caractere da string de entrada
+            for (let i = 0; i < inputText.length; i++) {
+                if (specialChars.includes(inputText[i])) { // Verifica se o caractere atual está na lista de caracteres especiais
+                    count++; // Incrementa a contagem se for um caractere especial
+                }
+            }
+            
+            // Exibe o resultado na página
+            resultElement.innerText = `Número de caracteres especiais: ${count}`; // Exibe o número total de caracteres especiais
+        }
+    </script>
+
+</body>
+</html>

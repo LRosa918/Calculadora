@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/carlos/calc.icon.ico" rel="shortcut icon" type="image/x-icon"> <!-- Define o ícone da página que aparece na aba do navegador -->
+    <link rel="stylesheet" href="styleCalc.css"> <!-- Link para o arquivo CSS que estiliza a página -->
+    <title>Exercícios</title> <!-- Define o título da página que aparece na aba do navegador -->
+</head>
+<body>
+    <div class="conteiner"> 
+        <h1>Calculadora</h1> 
+
+        <!-- Adicionando um formulário para a calculadora -->
+        <form id="calculator"> <!-- Formulário que contém os campos para os números e operações -->
+            <div id="calc-container"> <!-- Div que contém o campo para o primeiro número -->
+                <label for="num1">Digite um Número:</label> <!-- Rótulo para o primeiro número-->
+                <input type="number" id="num1" required> <!-- Campo de entrada para o primeiro número, obrigatório -->
+            </div>
+            <div id="operation-container"> <!-- Div que contém o campo para escolher a operação (DropDown)-->
+                <label for="operation">Escolha uma Operação:</label> <!-- Rótulo para a operação-->
+                <select id="operation" required> <!-- Menu suspenso para selecionar a operação, obrigatório -->
+                    <option value="add">Adição</option> <!-- Opção de adição -->
+                    <option value="sub">Subtração</option> <!-- Opção de subtração -->
+                    <option value="mult">Multiplicação</option> <!-- Opção de multiplicação -->
+                    <option value="divi">Divisão</option> <!-- Opção de divisão -->
+                </select>
+            </div>
+            <div id="num2-container"> <!-- Div que contém o campo para o segundo número -->
+                <label for="num2">Digite outro Número:</label> <!-- Rótulo para o segundo número (não exibido) -->
+                <input type="number" id="num2" required> <!-- Campo de entrada para o segundo número, obrigatório -->
+            </div>
+            <button type="button" onclick="calculate()">Calcular</button> <!-- Botão para executar a função de cálculo -->
+            <button type="button" class="BtnLimpar" onclick="clearFields()">Limpar</button> <!-- Botão para limpar os campos -->
+            <a href="telaInicio.html" class="btn">Voltar ao Inicio</a> <!-- Link para voltar à tela inicial -->
+        </form>
+
+        <p id="result"></p> <!-- Parágrafo onde o resultado será exibido -->
+    </div>
+
+    <script>
+        function calculate() {
+            // Pegando os valores dos inputs
+            const num1 = document.getElementById('num1').value; // Obtém o valor do primeiro número
+            const num2 = document.getElementById('num2').value; // Obtém o valor do segundo número
+            const operation = document.getElementById('operation').value; // Obtém a operação selecionada
+
+            // Pegando o elemento onde será exibido o resultado
+            const resultElement = document.getElementById('result'); // Referência ao parágrafo de resultado
+
+            // Verificando se os campos de número estão preenchidos
+            if (num1 === "" || num2 === "") { // Se algum campo estiver vazio
+                resultElement.innerText = "Campo inválido!"; // Exibe uma mensagem de erro
+                resultElement.className = "error"; // Aplica a classe de erro para estilização
+                return; // Sai da função sem realizar o cálculo
+            }
+
+            // Convertendo os valores dos inputs para números
+            const num1Float = parseFloat(num1); // Converte o primeiro número para ponto flutuante
+            const num2Float = parseFloat(num2); // Converte o segundo número para ponto flutuante
+
+            let result; // Variável que irá armazenar o resultado do cálculo
+
+            // Realizando a operação com base no valor selecionado
+            if (operation === 'add') { // Se a operação for adição
+                result = num1Float + num2Float; // Soma os números
+            } else if (operation === 'sub') { // Se a operação for subtração
+                result = num1Float - num2Float; // Subtrai os números
+            } else if (operation === 'mult') { // Se a operação for multiplicação
+                result = num1Float * num2Float; // Multiplica os números
+            } else if (operation === 'divi') { // Se a operação for divisão
+                result = num1Float / num2Float; // Divide os números
+            }
+
+            // Exibindo o resultado na página
+            resultElement.innerText = `Resultado: ${result}`; // Exibe o resultado no parágrafo de resultado
+            resultElement.className = ""; // Remove a classe de erro, se houver resultado válido
+        }
+
+        function clearFields() {
+            // Limpando os campos de entrada
+            document.getElementById('num1').value = ""; // Limpa o campo do primeiro número
+            document.getElementById('num2').value = ""; // Limpa o campo do segundo número
+            document.getElementById('operation').value = "add"; // Restaura o valor padrão da operação
+            document.getElementById('result').innerText = ""; // Limpa a mensagem de resultado
+            document.getElementById('result').className = ""; // Remove a classe de erro, se houver
+        }
+
+    </script>
+</body>
+</html>

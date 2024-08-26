@@ -1,0 +1,86 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link href="/carlos/calc.icon.ico" rel="shortcut icon" type="image/x-icon"> <!-- Define o ícone que aparece na aba do navegador -->
+    <link rel="stylesheet" href="styleCalc.css"> <!-- Link para o arquivo CSS externo que estiliza a página -->
+    <title>Nota</title> <!-- Define o título da página que aparece na aba do navegador -->
+    <style>
+        .error { color: red; } /* Define a cor vermelha para a classe .error, usada para mensagens de erro */
+    </style>
+</head>
+<body>
+    <div class="conteiner"> 
+        <h1>Calculadora de Média</h1> <!-- Cabeçalho da página -->
+        
+        <!-- Campos de entrada para as notas, com o atributo step="0.1" para aceitar decimais -->
+        <input type="number" id="nota1" placeholder="Nota 1" step="0.1">
+        <input type="number" id="nota2" placeholder="Nota 2" step="0.1">
+        <input type="number" id="nota3" placeholder="Nota 3" step="0.1">
+        <input type="number" id="nota4" placeholder="Nota 4" step="0.1">
+        
+        <!-- Botão que aciona a função para calcular a média -->
+        <button onclick="calcularMedia()">Calcular</button>
+        
+        <!-- Botão para limpar os campos de entrada e as mensagens de erro/resultados -->
+        <button type="button" class="BtnLimpar" onclick="clearFields()">Limpar</button>
+        
+        <!-- Div onde o resultado da média será exibido -->
+        <div id="resultado"></div>
+        
+        <!-- Div onde as mensagens de erro serão exibidas -->
+        <div id="erro" class="error"></div>
+        
+        <!-- Link para voltar à tela inicial -->
+        <a href="telaInicio.html" class="btn">Voltar ao Inicio</a>
+    </div>
+
+    <script>
+        function calcularMedia() {
+            // Obtém os valores das notas dos inputs e converte para números
+            const nota1 = parseFloat(document.getElementById('nota1').value);
+            const nota2 = parseFloat(document.getElementById('nota2').value);
+            const nota3 = parseFloat(document.getElementById('nota3').value);
+            const nota4 = parseFloat(document.getElementById('nota4').value);
+            
+            const erroDiv = document.getElementById('erro'); // Referência ao div de erros
+            const resultadoDiv = document.getElementById('resultado'); // Referência ao div de resultado
+            
+            // Limpa mensagens de erro e resultado anterior
+            erroDiv.innerText = '';  
+            resultadoDiv.innerText = '';  
+
+            // Verifica se todas as notas são válidas e não estão vazias
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3) || isNaN(nota4)) {
+                erroDiv.innerText = 'Por favor, insira todas as notas válidas.';
+                return; // Sai da função se houver um erro
+            }
+
+            // Calcula a média das notas
+            const media = (nota1 + nota2 + nota3 + nota4) / 4;
+            let situacao;
+
+            // Define a situação do aluno com base na média
+            if (media >= 7) situacao = 'Aprovado';
+            else if (media >= 5) situacao = 'Em Recuperação';
+            else situacao = 'Reprovado';
+
+            // Exibe o resultado na página
+            resultadoDiv.innerText = `Média: ${media.toFixed(1)} - Situação: ${situacao}`;
+        }
+
+        function clearFields() {
+            // Limpa os campos de entrada de notas
+            document.getElementById('nota1').value = "";
+            document.getElementById('nota2').value = "";
+            document.getElementById('nota3').value = "";
+            document.getElementById('nota4').value = "";
+            
+            // Limpa o resultado e as mensagens de erro
+            document.getElementById('resultado').innerText = ""; 
+            document.getElementById('erro').innerText = ""; 
+        }
+    </script>
+</body>
+</html>

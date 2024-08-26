@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleCalc.css"> <!-- Link para o arquivo CSS que estiliza a página -->
+    <link href="/carlos/calc.icon.ico" rel="shortcut icon" type="image/x-icon"> <!-- Define o ícone da página que aparece na aba do navegador -->
+    <title>Verificar Primo</title> <!-- Define o título da página que aparece na aba do navegador -->
+</head>
+<body>
+    <div class="conteiner"> 
+        <h1>Verificação de Número Primo</h1> 
+
+        <label for="num">Digite um Número:</label> <!-- Rótulo para o campo de entrada do número -->
+        <input type="number" id="num" required> <!-- Campo de entrada para o número, obrigatório -->
+        <button type="button" onclick="checkPrime()">Verificar Primo</button> <!-- Botão que aciona a função para verificar se o número é primo -->
+
+        <p id="result"></p> <!-- Parágrafo onde o resultado será exibido -->
+        <a href="telaInicio.html" class="btn">Voltar</a> <!-- Link para voltar à tela inicial -->
+    </div>
+    <script>
+        function checkPrime() {
+            const num = parseInt(document.getElementById('num').value, 10); // Obtém o valor do número digitado e o converte para inteiro
+            const resultElement = document.getElementById('result'); // Referência ao parágrafo onde o resultado será exibido
+
+            if (isNaN(num)) { // Verifica se o valor digitado não é um número
+                resultElement.innerText = "Por favor, digite um número válido."; // Exibe uma mensagem de erro se o valor não for um número
+                return; // Sai da função sem realizar a verificação de primo
+            }
+
+            let isPrime = true; // Inicializa a variável que determina se o número é primo
+
+            // Verifica se o número é menor que 2
+            if (num < 2) {
+                isPrime = false; // Números menores que 2 não são primos
+            } else {
+                // Verifica se o número é divisível por qualquer número de 2 até num - 1
+                for (let i = 2; i < num; i++) {
+                    if (num % i === 0) { // Se o número for divisível por i, não é primo
+                        isPrime = false; // Define isPrime como falso
+                        break; // Interrompe o loop, pois já encontrou um divisor
+                    }
+                }
+            }
+
+            // Exibe a mensagem de resultado
+            if (isPrime) { // Se o número for primo
+                resultElement.innerText = `${num} é um número primo.`; // Exibe a mensagem de que o número é primo
+            } else { // Se o número não for primo
+                resultElement.innerText = `${num} não é um número primo.`; // Exibe a mensagem de que o número não é primo
+            }
+        }
+    </script>
+</body>
+</html>

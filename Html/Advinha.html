@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Define a codificação de caracteres para UTF-8 -->
+    <meta charset="UTF-8">
+    <!-- Configura o viewport para garantir que a página seja exibida corretamente em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define o ícone da página -->
+    <link href="/carlos/calc.icon.ico" rel="shortcut icon" type="image/x-icon">
+    <!-- Link para o arquivo CSS externo -->
+    <link rel="stylesheet" href="styleCalc.css">
+    <!-- Título da página -->
+    <title>Jogo da Adivinhação</title>
+</head>
+<body>
+    <!-- Contêiner principal da página -->
+    <div class="conteiner">
+        <!-- Cabeçalho principal da página -->
+        <h1>Jogo da Adivinhação</h1>
+        <!-- Parágrafo com instruções do jogo -->
+        <p>Tente adivinhar o número entre 1 e 100!</p>
+        <!-- Formulário do jogo -->
+        <form id="jogo">
+            <!-- Campo de entrada para o palpite do usuário -->
+            <input type="number" id="guess" placeholder="Digite seu palpite" min="1" max="100">
+            <!-- Botão para enviar o palpite -->
+            <button type="button" class="btnEnviar" onclick="checkGuess()">Enviar Palpite</button>
+            <!-- Div para exibir o feedback do palpite -->
+            <div id="feedback" class="error"></div>
+            <!-- Botão para reiniciar o jogo -->
+            <button type="button" id="restartButton" class="btnReiniciar" onclick="restartGame()">Jogar Novamente</button>
+            <!-- Link para voltar ao início -->
+            <a href="telaInicio.html" class="btnVoltar">Voltar ao Inicio</a>
+        </form>
+    </div>
+    <script>
+        let randomNumber; // Variável para armazenar o número aleatório gerado
+
+        // Função para iniciar o jogo
+        function startGame() {
+            // Gera um número aleatório entre 1 e 100
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            
+            // Limpa qualquer feedback ou resultado anterior
+            document.getElementById('feedback').innerText = '';
+        }
+
+        // Função para verificar o palpite do usuário
+        function checkGuess() {
+            // Obtém o valor do palpite do usuário e o converte para um número inteiro
+            const guess = parseInt(document.getElementById('guess').value);
+            
+            // Obtém o elemento onde o feedback será exibido
+            const feedbackDiv = document.getElementById('feedback');
+            
+            // Verifica se o palpite é um número válido
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                feedbackDiv.innerText = 'Por favor, insira um número entre 1 e 100.';
+                return; // Sai da função se o palpite não for válido
+            }
+
+            // Compara o palpite com o número aleatório
+            if (guess < randomNumber) {
+                feedbackDiv.innerText = 'Tente um número maior.';
+            } else if (guess > randomNumber) {
+                feedbackDiv.innerText = 'Tente um número menor.';
+            } else {
+                // Se o palpite estiver correto
+                feedbackDiv.innerText = 'Parabéns! Você acertou o número!';
+            }
+        }
+
+        // Função para reiniciar o jogo
+        function restartGame() {
+            // Limpa o campo de palpite
+            document.getElementById('guess').value = '';
+            
+            // Inicia o jogo novamente
+            startGame();
+        }
+
+        // Inicia o jogo assim que a página carrega
+        window.onload = startGame;
+    </script>
+</body>
+</html>
